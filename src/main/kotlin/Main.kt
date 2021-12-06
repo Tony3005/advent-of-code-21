@@ -8,6 +8,8 @@ import day3.oxygenRate
 import day4.Board
 import day5.generateVentedPoints
 import day5.parseHydrothermalInput
+import day6.parseLanternFishStateString
+import day6.simulateReplication
 import java.io.File
 
 fun main() {
@@ -16,6 +18,7 @@ fun main() {
     day3()
     day4()
     day5()
+    day6()
 }
 
 fun day1() {
@@ -113,4 +116,14 @@ fun day5() {
     }
 
     println("Overlaps: $ventedPointsCount")
+}
+
+fun day6() {
+    println("==== Day 6 ===")
+    val input = File("src/main/resources/adventOfCode6.txt").readLines().first()
+
+    val initialState = parseLanternFishStateString(input)
+    val totalFish = simulateReplication(256, initialState).toList().map {(_, value) -> value}.sum()
+
+    println("Amount of fish: $totalFish")
 }
