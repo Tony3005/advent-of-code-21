@@ -10,6 +10,7 @@ import day5.generateVentedPoints
 import day5.parseHydrothermalInput
 import day6.parseLanternFishStateString
 import day6.simulateReplication
+import day7.getLowestFuelCost
 import java.io.File
 
 fun main() {
@@ -19,6 +20,7 @@ fun main() {
     day4()
     day5()
     day6()
+    day7()
 }
 
 fun day1() {
@@ -126,4 +128,16 @@ fun day6() {
     val totalFish = simulateReplication(256, initialState).toList().map {(_, value) -> value}.sum()
 
     println("Amount of fish: $totalFish")
+}
+
+fun day7() {
+    println("==== Day 7 ===")
+    val crabList = File("src/main/resources/adventOfCode7.txt")
+        .readLines()
+        .first()
+        .split(',')
+        .map { it.toInt() }
+
+    val fuel = getLowestFuelCost(crabList)
+    println("Fuel needed: $fuel")
 }
