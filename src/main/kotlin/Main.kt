@@ -125,7 +125,7 @@ fun day6() {
     val input = File("src/main/resources/adventOfCode6.txt").readLines().first()
 
     val initialState = parseLanternFishStateString(input)
-    val totalFish = simulateReplication(256, initialState).toList().map {(_, value) -> value}.sum()
+    val totalFish = simulateReplication(256, initialState).toList().sumOf { (_, value) -> value }
 
     println("Amount of fish: $totalFish")
 }
