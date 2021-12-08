@@ -2,6 +2,7 @@ package day2
 
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 
 class PathSimulatorTest {
     @Test
@@ -55,15 +56,20 @@ class PathSimulatorTest {
 
         val commandList = commandListString.map {Command(it)}
 
-        val expectedCommandList = listOf(
-            MoveForward(5),
-            MoveForward(2),
-            Dive(7),
-            Ascend(3),
-            MoveForward(1)
-        )
+        assertIs<MoveForward>(commandList[0])
+        assertEquals(5, (commandList[0] as MoveForward).distance)
 
-        assertEquals(expectedCommandList, commandList)
+        assertIs<MoveForward>(commandList[1])
+        assertEquals(2, (commandList[1] as MoveForward).distance)
+
+        assertIs<Dive>(commandList[2])
+        assertEquals(7, (commandList[2] as Dive).depth)
+
+        assertIs<Ascend>(commandList[3])
+        assertEquals(3, (commandList[3] as Ascend).depth)
+
+        assertIs<MoveForward>(commandList[4])
+        assertEquals(1, (commandList[4] as MoveForward).distance)
     }
 
     @Test
@@ -72,6 +78,6 @@ class PathSimulatorTest {
 
         val newState = Dive(5).action(submarineState)
 
-        assertEquals(SubmarineState(0, 5, 5), newState)
+        assertEquals(SubmarineState(0, 0, 5), newState)
     }
 }
