@@ -11,6 +11,8 @@ import day5.parseHydrothermalInput
 import day6.parseLanternFishStateString
 import day6.simulateReplication
 import day7.getLowestFuelCost
+import day8.Decoder
+import day8.toEntry
 import java.io.File
 
 fun main() {
@@ -21,6 +23,7 @@ fun main() {
     day5()
     day6()
     day7()
+    day8()
 }
 
 fun day1() {
@@ -140,4 +143,17 @@ fun day7() {
 
     val fuel = getLowestFuelCost(crabList)
     println("Fuel needed: $fuel")
+}
+
+fun day8() {
+    println("==== Day 8 ===")
+    val outputSum = File("src/main/resources/adventOfCode8.txt")
+        .readLines()
+        .map { it.toEntry() }
+        .sumOf {
+            val decoder = Decoder(it)
+            decoder.output()
+        }
+
+    println("Output sum: $outputSum")
 }
