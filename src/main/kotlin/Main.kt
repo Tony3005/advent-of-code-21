@@ -13,6 +13,9 @@ import day6.simulateReplication
 import day7.getLowestFuelCost
 import day8.Decoder
 import day8.toEntry
+import day9.findBasinSizes
+import day9.findLowestPoints
+import day9.toBasinMap
 import java.io.File
 
 fun main() {
@@ -24,6 +27,7 @@ fun main() {
     day6()
     day7()
     day8()
+    day9()
 }
 
 fun day1() {
@@ -156,4 +160,29 @@ fun day8() {
         }
 
     println("Output sum: $outputSum")
+}
+
+fun day9() {
+    println("==== Day 9 ===")
+    val riskLevel = File("src/main/resources/adventOfCode9.txt")
+        .readLines()
+        .toBasinMap()
+        .findLowestPoints()
+        .sumOf {
+            it.value + 1
+        }
+
+    println("Risk level: $riskLevel")
+
+    val basinSizesProduct = File("src/main/resources/adventOfCode9.txt")
+        .readLines()
+        .toBasinMap()
+        .findBasinSizes()
+        .sortedDescending()
+        .take(3)
+        .reduce {product, size ->
+            product * size
+        }
+
+    println("Basins product: $basinSizesProduct")
 }
