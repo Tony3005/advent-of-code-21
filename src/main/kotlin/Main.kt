@@ -1,6 +1,9 @@
 import day1.DepthScanner
 import day10.findCorruptedCharacter
 import day10.findMissingCharacters
+import day11.findSynchronizedStep
+import day11.runSteps
+import day11.toOctopusMap
 import day2.Command
 import day2.run
 import day3.co2ScrubberRate
@@ -33,6 +36,7 @@ fun main() = runBlocking<Unit> {
     launch {day8()}
     launch {day9()}
     launch {day10()}
+    launch {day11()}
 }
 
 fun day1() {
@@ -229,4 +233,23 @@ fun day10() {
     val autocompleteScore = autocompleteScores[autocompleteScores.lastIndex / 2]
 
     println("Autocomplete Score: $autocompleteScore")
+}
+
+fun day11() {
+    println("==== Day 11 ===")
+
+    val flashes = File("src/main/resources/adventOfCode11.txt")
+        .readLines()
+        .toOctopusMap()
+        .runSteps(100)
+
+    println("Number of flashes after 100 steps: $flashes")
+
+
+    val synchronizedStep = File("src/main/resources/adventOfCode11.txt")
+        .readLines()
+        .toOctopusMap()
+        .findSynchronizedStep()
+
+    println("Synchronized Step: $synchronizedStep")
 }
