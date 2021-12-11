@@ -1,4 +1,6 @@
 import day1.DepthScanner
+import day10.findCorruptedCharacter
+import day10.findMissingCharacters
 import day2.Command
 import day2.run
 import day3.co2ScrubberRate
@@ -16,18 +18,21 @@ import day8.toEntry
 import day9.findBasinSizes
 import day9.findLowestPoints
 import day9.toBasinMap
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.File
 
-fun main() {
-    day1()
-    day2()
-    day3()
-    day4()
-    day5()
-    day6()
-    day7()
-    day8()
-    day9()
+fun main() = runBlocking<Unit> {
+    launch {day1()}
+    launch {day2()}
+    launch {day3()}
+    launch {day4()}
+    launch {day5()}
+    launch {day6()}
+    launch {day7()}
+    launch {day8()}
+    launch {day9()}
+    launch {day10()}
 }
 
 fun day1() {
@@ -185,4 +190,43 @@ fun day9() {
         }
 
     println("Basins product: $basinSizesProduct")
+}
+
+fun day10() {
+    println("==== Day 10 ===")
+    val input = File("src/main/resources/adventOfCode10.txt").readLines()
+    val errorScore = input
+        .mapNotNull {
+            it.findCorruptedCharacter()
+        }
+        .sumOf {
+            when (it) {
+                ')' -> 3
+                ']' -> 57
+                '}' -> 1197
+                '>' -> 25137
+                else -> 0
+            }.toInt()
+        }
+
+    println("Error Score: $errorScore")
+
+    val autocompleteScores = input
+        .filter { it.findCorruptedCharacter() == null }
+        .map { it.findMissingCharacters() }
+        .map {
+            it.fold(0L) { score, missingCharacter ->
+                score * 5 + when(missingCharacter) {
+                    ')' -> 1L
+                    ']' -> 2
+                    '}' -> 3
+                    '>' -> 4
+                    else -> 0
+                }
+            }
+        }.sorted()
+
+    val autocompleteScore = autocompleteScores[autocompleteScores.lastIndex / 2]
+
+    println("Autocomplete Score: $autocompleteScore")
 }
