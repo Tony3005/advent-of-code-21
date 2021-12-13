@@ -4,6 +4,8 @@ import day10.findMissingCharacters
 import day11.findSynchronizedStep
 import day11.runSteps
 import day11.toOctopusMap
+import day12.countPathsToEnd
+import day12.toGraph
 import day2.Command
 import day2.run
 import day3.co2ScrubberRate
@@ -37,6 +39,7 @@ fun main() = runBlocking<Unit> {
     launch {day9()}
     launch {day10()}
     launch {day11()}
+    launch {day12()}
 }
 
 fun day1() {
@@ -252,4 +255,14 @@ fun day11() {
         .findSynchronizedStep()
 
     println("Synchronized Step: $synchronizedStep")
+}
+
+fun day12() {
+    val pathCount = File("src/main/resources/adventOfCode12.txt")
+        .readLines()
+        .toGraph()
+        ?.countPathsToEnd()
+
+    println("Path count: $pathCount")
+
 }
