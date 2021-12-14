@@ -51,7 +51,6 @@ class SevenSegmentsDisplayTest {
             .map { it.toEntry() }
             .sumOf {
                 val decoder = Decoder(it)
-                val output = decoder.output()
                 decoder.output()
             }
         assertEquals(61229, outputSum)

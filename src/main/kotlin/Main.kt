@@ -6,6 +6,7 @@ import day11.runSteps
 import day11.toOctopusMap
 import day12.countPathsToEnd
 import day12.toGraph
+import day13.*
 import day2.Command
 import day2.run
 import day3.co2ScrubberRate
@@ -40,6 +41,7 @@ fun main() = runBlocking<Unit> {
     launch {day10()}
     launch {day11()}
     launch {day12()}
+    launch {day13()}
 }
 
 fun day1() {
@@ -258,11 +260,36 @@ fun day11() {
 }
 
 fun day12() {
+    println("==== Day 12 ===")
     val pathCount = File("src/main/resources/adventOfCode12.txt")
         .readLines()
         .toGraph()
         ?.countPathsToEnd()
 
     println("Path count: $pathCount")
+}
 
+fun day13() {
+    println("==== Day 13 ===")
+    val input = File("src/main/resources/adventOfCode13.txt")
+        .readLines()
+
+    var transparentPaper = input
+        .takeWhile { it != "" }
+        .toTransparentPaper()
+
+    println("Points left: ${transparentPaper.foldHorizontally(655).size}")
+
+    val foldSteps = input
+        .takeLastWhile { it != "" }
+        .toFoldingActions()
+
+    foldSteps.forEach { step ->
+        transparentPaper = when (step.first) {
+            "x" -> transparentPaper.foldVertically(step.second)
+            else -> transparentPaper.foldHorizontally(step.second)
+        }
+    }
+
+    print(transparentPaper.render())
 }
