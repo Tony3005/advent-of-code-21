@@ -7,6 +7,8 @@ import day11.toOctopusMap
 import day12.countPathsToEnd
 import day12.toGraph
 import day13.*
+import day14.polymerize
+import day14.toPolymerizationTable
 import day2.Command
 import day2.run
 import day3.co2ScrubberRate
@@ -42,6 +44,7 @@ fun main() = runBlocking<Unit> {
     launch {day11()}
     launch {day12()}
     launch {day13()}
+    launch {day14()}
 }
 
 fun day1() {
@@ -291,5 +294,28 @@ fun day13() {
         }
     }
 
-    print(transparentPaper.render())
+    println(transparentPaper.render())
+}
+
+fun day14() {
+    println("==== Day 14 ===")
+    val base = File("src/main/resources/adventOfCode14.txt")
+        .readLines()
+        .first()
+
+    val polymerizationTable = File("src/main/resources/adventOfCode14.txt")
+        .readLines()
+        .takeLastWhile { it != "" }
+        .toPolymerizationTable()
+
+    val polymerized = base.polymerize(polymerizationTable, 40)
+    val groups = polymerized.entries.sortedBy {
+        it.value
+    }
+
+    val min = groups.first().value
+    val max = groups.last().value
+    val result = max - min
+
+    println("Result: $result")
 }
