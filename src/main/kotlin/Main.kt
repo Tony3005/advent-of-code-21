@@ -9,6 +9,8 @@ import day12.toGraph
 import day13.*
 import day14.polymerize
 import day14.toPolymerizationTable
+import day15.expand
+import day15.findBestPath
 import day2.Command
 import day2.run
 import day3.co2ScrubberRate
@@ -45,6 +47,7 @@ fun main() = runBlocking<Unit> {
     launch {day12()}
     launch {day13()}
     launch {day14()}
+    launch {day15()}
 }
 
 fun day1() {
@@ -318,4 +321,18 @@ fun day14() {
     val result = max - min
 
     println("Result: $result")
+}
+
+fun day15() {
+    println("==== Day 15 ===")
+
+    val shortestPath = File("src/main/resources/adventOfCode15.txt")
+        .readLines()
+        .map { row ->
+            row.map { Character.getNumericValue(it) }
+        }
+        .expand(5)
+        .findBestPath()
+
+    println("Shortest path cost: $shortestPath")
 }
