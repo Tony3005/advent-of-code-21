@@ -26,9 +26,9 @@ fun String.polymerize(table: PolymerizationTable, steps: Int): Map<Char, Long> {
 
     val formattedOccurrences = occurrences.groupBy {
         it.first
-    }.mapValues { it.value.fold(0L) { sum, it ->
-        sum + it.second
-    }}.toMutableMap()
+    }.mapValues { charOccurrences ->
+        charOccurrences.value.fold(0L) { sum, it -> sum + it.second }
+    }.toMutableMap()
 
     formattedOccurrences[last()] = formattedOccurrences[last()]!!.plus(1)
 

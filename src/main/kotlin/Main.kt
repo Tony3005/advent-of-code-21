@@ -11,6 +11,8 @@ import day14.polymerize
 import day14.toPolymerizationTable
 import day15.expand
 import day15.findBestPath
+import day16.toBinaryString
+import day16.toPacket
 import day2.Command
 import day2.run
 import day3.co2ScrubberRate
@@ -48,6 +50,7 @@ fun main() = runBlocking<Unit> {
     launch {day13()}
     launch {day14()}
     launch {day15()}
+    launch {day16()}
 }
 
 fun day1() {
@@ -335,4 +338,17 @@ fun day15() {
         .findBestPath()
 
     println("Shortest path cost: $shortestPath")
+}
+
+fun day16() {
+    println("==== Day 16 ===")
+
+    val packet =  File("src/main/resources/adventOfCode16.txt")
+        .readLines()
+        .first()
+        .toBinaryString()
+        .toPacket()
+
+    println("Version sum: ${packet.toVersionSum()}")
+    println("Evaluation Result: ${packet.evaluate()}")
 }
