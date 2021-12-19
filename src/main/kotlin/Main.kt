@@ -13,6 +13,9 @@ import day15.expand
 import day15.findBestPath
 import day16.toBinaryString
 import day16.toPacket
+import day17.Area
+import day17.findHighestShot
+import day17.findTotalValidShots
 import day2.Command
 import day2.run
 import day3.co2ScrubberRate
@@ -51,6 +54,7 @@ fun main() = runBlocking<Unit> {
     launch {day14()}
     launch {day15()}
     launch {day16()}
+    launch {day17()}
 }
 
 fun day1() {
@@ -351,4 +355,16 @@ fun day16() {
 
     println("Version sum: ${packet.toVersionSum()}")
     println("Evaluation Result: ${packet.evaluate()}")
+}
+
+fun day17() {
+    println("==== Day 17 ===")
+
+    val area = Area(156, 202, -110, -69)
+    val highestShot = area.findHighestShot()
+    val totalValidShots = area.findTotalValidShots()
+
+
+    println("Highest: $highestShot")
+    println("Total valid shots: $totalValidShots")
 }
