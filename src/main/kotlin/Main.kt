@@ -16,6 +16,9 @@ import day16.toPacket
 import day17.Area
 import day17.findHighestShot
 import day17.findTotalValidShots
+import day18.magnitude
+import day18.reduce
+import day18.toNode
 import day2.Command
 import day2.run
 import day3.co2ScrubberRate
@@ -55,6 +58,7 @@ fun main() = runBlocking<Unit> {
     launch {day15()}
     launch {day16()}
     launch {day17()}
+    launch {day18()}
 }
 
 fun day1() {
@@ -367,4 +371,31 @@ fun day17() {
 
     println("Highest: $highestShot")
     println("Total valid shots: $totalValidShots")
+}
+
+fun day18() {
+    println("==== Day 18 ===")
+
+    val numbers = File("src/main/resources/adventOfCode18.txt").readLines()
+
+    val magnitude = numbers.fold("") { total, line ->
+        if ("" == total)
+            line
+        else {
+            "[$total,$line]".toNode().reduce().toString()
+        }
+    }.toNode().magnitude()
+
+    var max = 0
+
+    numbers.forEachIndexed { i, a ->
+        numbers.forEachIndexed { j, b ->
+            if (i != j) {
+                max = listOf("[$a,$b]".toNode().reduce().magnitude(), max).maxOf { it }
+            }
+        }
+    }
+
+    println("Magnitude: $magnitude")
+    println("Max Magnitude: $max")
 }
